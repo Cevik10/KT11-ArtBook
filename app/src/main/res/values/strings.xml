@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ArtBookKt</string>
+    <string name="mona_lisa">Mona Lisa</string>
+    <string name="year">year:</string>
+    <string name="artist_name">artist name:</string>
+    <string name="art_name">art name:</string>
+</resources>
