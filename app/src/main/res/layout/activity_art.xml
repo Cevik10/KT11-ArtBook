@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/imageView"
+        android:onClick="selectImage"
         android:layout_width="390dp"
         android:layout_height="206dp"
         android:layout_marginTop="51dp"
@@ -125,6 +126,7 @@
             android:layout_marginVertical="13dp"
             android:background="@drawable/custom_save_button"
             android:text="Save"
+            android:onClick="saveButton"
             android:textAllCaps="false"
             android:textSize="20dp"
             android:textStyle="bold">
