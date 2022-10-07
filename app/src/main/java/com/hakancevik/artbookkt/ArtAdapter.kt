@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hakancevik.artbookkt.databinding.RecyclerRowBinding
 
 
-class ArtAdapter(val artList : ArrayList<Art>) : RecyclerView.Adapter<ArtAdapter.ArtHolder>() {
+class ArtAdapter(val artList: ArrayList<Art>) : RecyclerView.Adapter<ArtAdapter.ArtHolder>() {
 
     class ArtHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -16,7 +16,7 @@ class ArtAdapter(val artList : ArrayList<Art>) : RecyclerView.Adapter<ArtAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtHolder {
-        val binding = RecyclerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = RecyclerRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ArtHolder(binding)
     }
 
@@ -24,7 +24,9 @@ class ArtAdapter(val artList : ArrayList<Art>) : RecyclerView.Adapter<ArtAdapter
         holder.binding.recyclerViewTextView.text = artList.get(position).name
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context,ArtActivity::class.java)
+            val intent = Intent(holder.itemView.context, ArtActivity::class.java)
+            intent.putExtra("info", "old")
+            intent.putExtra("id", artList.get(position).id)
             holder.itemView.context.startActivity(intent)
         }
     }

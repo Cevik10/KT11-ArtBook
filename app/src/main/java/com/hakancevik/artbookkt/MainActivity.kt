@@ -29,17 +29,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        try {
+            val database = this.openOrCreateDatabase("Arts", MODE_PRIVATE, null)
 
-        try{
-            val database = this.openOrCreateDatabase("Arts", MODE_PRIVATE,null)
-
-            val cursor = database.rawQuery("SELECT * FROM arts",null)
+            val cursor = database.rawQuery("SELECT * FROM arts", null)
             val artNameIx = cursor.getColumnIndex("artname")
             val idIx = cursor.getColumnIndex("id")
 
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 val name = cursor.getString(artNameIx)
-                val id = cursor.getString(idIx)
+                val id = cursor.getInt(idIx)
                 val art = Art(name, id)
                 artList.add(art)
             }
@@ -49,13 +48,9 @@ class MainActivity : AppCompatActivity() {
             cursor.close()
 
 
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
-
-
-
-
 
 
     }
@@ -63,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.options_menu,menu)
+        menuInflater.inflate(R.menu.options_menu, menu)
 
         return super.onCreateOptionsMenu(menu)
 
@@ -71,15 +66,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.add_art){
-            val intent = Intent(this@MainActivity,ArtActivity::class.java)
+        if (item.itemId == R.id.add_art) {
+            val intent = Intent(this@MainActivity, ArtActivity::class.java)
+            intent.putExtra("info","new")
             startActivity(intent)
 
         }
 
         return super.onOptionsItemSelected(item)
     }
-
 
 
 }

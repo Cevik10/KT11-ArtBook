@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFD180"
+    android:background="#356F77"
     tools:context=".ArtActivity">
 
     <ImageView
@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/select_image" />
+        app:srcCompat="@drawable/select_image"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <LinearLayout
@@ -120,6 +121,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="100dp"
