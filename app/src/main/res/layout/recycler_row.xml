@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
         android:layout_marginVertical="5dp"
-        app:cardBackgroundColor="#8A0D30"
+        app:cardBackgroundColor="#B16177"
         app:cardCornerRadius="33dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:layout_marginStart="7dp"
                 android:text="@string/mona_lisa"
                 android:textColor="@color/white"
                 android:textSize="23sp"
