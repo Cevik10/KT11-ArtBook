@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.hakancevik.artbookkt.databinding.ActivityArtBinding
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 
@@ -38,10 +39,77 @@ class ArtActivity : AppCompatActivity() {
     }
 
 
+    private fun makeSmallerBitmap(image: Bitmap,maximumSize: Int): Bitmap{
+        var width = image.width
+        var height = image.height
+
+        val bitmapRatio : Double = width.toDouble() / height.toDouble()
+
+        if (bitmapRatio > 1){
+            // landscape
+            width = maximumSize
+            val scaledHeight = width / bitmapRatio
+            height = scaledHeight.toInt()
+
+        }else {
+            // portrait
+            height = maximumSize
+            val scaledWidth = height * bitmapRatio
+            width = scaledWidth.toInt()
+
+        }
+
+        return Bitmap.createScaledBitmap(image,width,height,true)
+
+    }
+
+
+
+
     fun saveButton(view: View) {
+
+        val artName = binding.artNameText.text.toString()
+        val artistName = binding.artistNameText.text.toString()
+        val year = binding.yearText.text.toString()
+
+        if (selectedBitmap != null){
+            val smallBitmap = makeSmallerBitmap(selectedBitmap!!,300)
+
+            val outputStream = ByteArrayOutputStream()
+            smallBitmap.compress(Bitmap.CompressFormat.PNG,50,outputStream)
+            val byteArray = outputStream.toByteArray()
+
+            try {
+                val database = this.openOrCreateDatabase("Arts", MODE_PRIVATE,null)
+                database.execSQL("CREATE TABLE IF NOT EXISTS arts (id INTEGER PRIMARY KEY,artname VARCHAR,artistname VARCHAR,year VARCHAR,image BLOB)")
+
+                val sqlString = "INSERT INTO arts (artname, artistname, year, image) VALUES (?, ?, ?, ?)"
+                val statement = database.compileStatement(sqlString)
+                statement.bindString(1,artName)
+                statement.bindString(2,artistName)
+                statement.bindString(3,year)
+                statement.bindBlob(4,byteArray)
+                statement.execute()
+
+
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+
+
+            val intent = Intent(this@ArtActivity,MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+
+        }
+
 
 
     }
+
+
+
+
 
     fun selectImage(view: View) {
 
